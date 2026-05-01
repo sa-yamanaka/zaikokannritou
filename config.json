@@ -1,0 +1,8 @@
+{
+  "port": 5000,
+  "use_firebase": false,
+  "firebase_config": {
+    "service_account_path": "",
+    "collection": "inventory"
+  }
+}
