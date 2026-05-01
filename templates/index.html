@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在庫管理システム</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="page-index">
+  <div class="index-wrap">
+    <header class="index-header">
+      <h1>製造業向け 在庫管理システム</h1>
+      <p class="sub">ご利用の端末を選んでください</p>
+    </header>
+
+    <div class="mode-buttons">
+      <a href="/desktop" class="mode-btn mode-pc">
+        <div class="mode-icon">🖥️</div>
+        <div class="mode-label">PC用</div>
+        <div class="mode-desc">登録・削除・一覧確認・Excel出力</div>
+      </a>
+      <a href="/mobile" class="mode-btn mode-mobile">
+        <div class="mode-icon">📱</div>
+        <div class="mode-label">スマホ用</div>
+        <div class="mode-desc">材料を検索して在庫を増減</div>
+      </a>
+    </div>
+
+    <div class="qr-section">
+      <h2>スマホでアクセスする</h2>
+      <p class="qr-help">スマホのカメラでQRコードを読み取ると、スマホ用画面が開きます</p>
+      <div class="qr-box">
+        <img id="qrImg" src="/api/qr" alt="QR Code">
+        <div class="qr-url" id="qrUrl">読み込み中...</div>
+      </div>
+    </div>
+
+    <footer class="index-footer">
+      <small>データはこのPC内に安全に保存されます / 履歴Excel: data/履歴.xlsx</small>
+    </footer>
+  </div>
+
+<script>
+fetch("/api/server-info").then(r=>r.json()).then(d=>{
+  document.getElementById("qrUrl").textContent = d.mobile_url;
+});
+</script>
+</body>
+</html>

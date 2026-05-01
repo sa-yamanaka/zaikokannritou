@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC用 在庫管理</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="page-desktop">
+  <header class="top-bar">
+    <a href="/" class="back-btn">← 戻る</a>
+    <h1>在庫管理 (PC用)</h1>
+    <div class="top-links">
+      <a href="/api/history" class="link-btn">📥 履歴ダウンロード</a>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="tab-list">📋 在庫一覧</button>
+    <button class="tab" data-tab="tab-register">➕ 新規登録</button>
+    <button class="tab" data-tab="tab-export">📊 Excel出力</button>
+  </nav>
+
+  <!-- 在庫一覧タブ -->
+  <section id="tab-list" class="tab-content active">
+    <div class="toolbar">
+      <button class="btn btn-primary" onclick="loadList()">🔄 在庫確認 (一覧更新)</button>
+      <input type="search" id="searchBox" placeholder="検索（番号・メーカー・色...）" oninput="filterList()">
+      <span class="stats" id="statsArea"></span>
+    </div>
+    <div id="alertArea"></div>
+    <div class="table-wrap">
+      <table id="inventoryTable">
+        <thead>
+          <tr>
+            <th>振り分け番号</th>
+            <th>メーカー名</th>
+            <th>在庫数</th>
+            <th>縦</th>
+            <th>横</th>
+            <th>厚み</th>
+            <th>色</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 新規登録タブ -->
+  <section id="tab-register" class="tab-content">
+    <form id="registerForm" class="form-grid">
+      <label>振り分け番号 <span class="req">*</span>
+        <input type="text" name="code" required placeholder="例: AL-001">
+      </label>
+      <label>メーカー名
+        <input type="text" name="manufacturer" placeholder="例: A社">
+      </label>
+      <label>在庫数
+        <input type="number" name="quantity" value="0">
+      </label>
+      <label>縦 (mm)
+        <input type="number" step="0.1" name="length">
+      </label>
+      <label>横 (mm)
+        <input type="number" step="0.1" name="width">
+      </label>
+      <label>厚み (mm)
+        <input type="number" step="0.1" name="thickness">
+      </label>
+      <label>色
+        <input type="text" name="color" placeholder="例: シルバー">
+      </label>
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-primary btn-large">登録する</button>
+        <button type="reset" class="btn btn-secondary">クリア</button>
+      </div>
+    </form>
+    <div id="registerMsg"></div>
+  </section>
+
+  <!-- Excel出力タブ -->
+  <section id="tab-export" class="tab-content">
+    <h2>Excel出力設定</h2>
+    <p class="help-text">
+      各列(A〜G)にどの項目を表示するか、プルダウンで自由にカスタマイズできます。<br>
+      「項目なし」を選ぶとその列は空白になります。
+    </p>
+    <div class="column-mapping" id="columnMapping">
+      <!-- JS で生成 -->
+    </div>
+    <div class="export-buttons">
+      <button class="btn btn-secondary" onclick="showPreview()">👁️ プレビューを表示</button>
+      <button class="btn btn-primary btn-large" onclick="exportExcel()">📊 Excel出力</button>
+      <button class="btn btn-ghost" onclick="resetMapping()">初期設定に戻す</button>
+    </div>
+    <div id="previewArea" class="preview-area"></div>
+  </section>
+
+<script src="/static/app.js"></script>
+<script>initDesktop();</script>
+</body>
+</html>

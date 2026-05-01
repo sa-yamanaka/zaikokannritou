@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>スマホ用 在庫管理</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="page-mobile">
+  <header class="mobile-header">
+    <a href="/" class="back-btn">← 戻る</a>
+    <h1>在庫管理 📱</h1>
+  </header>
+
+  <main class="mobile-main">
+    <!-- 検索方法切替 -->
+    <div class="search-tabs">
+      <button class="s-tab active" data-stab="s-byCode">1. 振り分け番号から探す</button>
+      <button class="s-tab" data-stab="s-bySize">2. メーカー・サイズで探す</button>
+    </div>
+
+    <!-- 検索1: 振り分け番号プルダウン -->
+    <section id="s-byCode" class="s-content active">
+      <label class="big-label">振り分け番号を選択</label>
+      <select id="codeSelect" class="big-select">
+        <option value="">-- 選択してください --</option>
+      </select>
+      <button class="btn btn-primary btn-xl" onclick="searchByCode()">🔍 検索する</button>
+    </section>
+
+    <!-- 検索2: メーカー・サイズ -->
+    <section id="s-bySize" class="s-content">
+      <label class="big-label">メーカー</label>
+      <div class="input-with-list">
+        <input id="mfInput" class="big-input" list="mfList" placeholder="入力または選択">
+        <datalist id="mfList"></datalist>
+      </div>
+
+      <label class="big-label">縦 (mm)</label>
+      <div class="input-with-list">
+        <input id="lenInput" class="big-input" type="number" step="0.1" list="lenList" placeholder="入力または選択">
+        <datalist id="lenList"></datalist>
+      </div>
+
+      <label class="big-label">横 (mm)</label>
+      <div class="input-with-list">
+        <input id="wInput" class="big-input" type="number" step="0.1" list="wList" placeholder="入力または選択">
+        <datalist id="wList"></datalist>
+      </div>
+
+      <label class="big-label">厚み (mm)</label>
+      <div class="input-with-list">
+        <input id="tInput" class="big-input" type="number" step="0.1" list="tList" placeholder="入力または選択">
+        <datalist id="tList"></datalist>
+      </div>
+
+      <button class="btn btn-primary btn-xl" onclick="searchBySize()">🔍 検索する</button>
+      <p class="hint">※既存の値は候補表示。新しい値を入力することもできます。</p>
+    </section>
+
+    <!-- 検索結果 -->
+    <section id="results" class="results"></section>
+  </main>
+
+<script src="/static/app.js"></script>
+<script>initMobile();</script>
+</body>
+</html>
